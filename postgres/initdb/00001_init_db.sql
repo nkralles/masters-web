@@ -1,30 +1,40 @@
-GRANT ALL PRIVILEGES ON DATABASE masters TO masters;
-ALTER DATABASE masters SET intervalstyle = 'iso_8601';
+GRANT
+ALL
+PRIVILEGES
+ON
+DATABASE
+masters TO masters;
+ALTER
+DATABASE masters SET intervalstyle = 'iso_8601';
 
-create extension if not exists timescaledb;
-
+create
+extension if not exists timescaledb;
+create
+extension if not exists citext;
 
 create table golfers
 (
     player_id  int primary key not null,
     rank       int             not null,
-    first_name text            not null,
-    last_name  text            not null,
-    cc         text            not null
+    first_name citext          not null,
+    last_name  citext          not null,
+    cc         citext          not null
 );
 
+create index on golfers (rank);
+create index on golfers (cc);
+create index on golfers ((first_name || ' ' || last_name));
 
 create table entries
 (
-    id            bigserial primary key not null,
-    name          text                  not null,
-    winning_score int                   not null
+    name          citext primary key not null,
+    winning_score int                not null default 1000
 );
 
 create table user_golfer_entries
 (
     uuid      uuid not null primary key default gen_random_uuid(),
-    entry_id  bigint references entries (id) on update cascade on delete cascade,
+    entry_name  citext references entries (name) on update cascade on delete cascade,
     golfer_id int references golfers (player_id) on update cascade on delete cascade
 );
 
@@ -68,7 +78,7 @@ create table masters_score_holes
 );
 create index on masters_score_holes (player_id);
 create index on masters_score_holes (player_id, round);
-SELECT create_hypertable('masters_score_holes', 'ts', chunk_time_interval => INTERVAL '5 minutes');
+SELECT create_hypertable('masters_score_holes', 'ts', chunk_time_interval = > INTERVAL '5 minutes');
 
 create table masters_scores
 (
@@ -80,4 +90,4 @@ create table masters_scores
 
 create index on masters_scores (player_id);
 create index on masters_scores (player_id, round);
-SELECT create_hypertable('masters_scores', 'ts', chunk_time_interval => INTERVAL '5 minutes');
+SELECT create_hypertable('masters_scores', 'ts', chunk_time_interval = > INTERVAL '5 minutes');

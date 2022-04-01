@@ -11,6 +11,9 @@ var Config struct {
 	Port          int    `env:"PORT"`
 
 	DatabaseURL string `env:"DATABASE_URL"`
+
+	//Should only be used for testing old data where golfers ranks don't match with current dataset
+	EnforceRank bool `env:"ENFORCE_RANK"`
 }
 
 func init() {
