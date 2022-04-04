@@ -1,6 +1,7 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import Nav from "../../components/Nav";
 import {DataGridPro, GridColDef, GridRowsProp} from "@mui/x-data-grid-pro";
+import {api} from "../../lib/api";
 
 const columns: GridColDef[] = [
     {
@@ -68,6 +69,20 @@ const rows: GridRowsProp = [
 ]
 
 function Entries() {
+    useEffect(() => {
+        ;(async () => {
+            try{
+                const entries = await api.getJSON('/entries')
+                for (let e in entries) {
+                    console.log(e)
+                }
+            }catch (err){
+                console.error(err)
+            }
+        })()
+    },[])
+   //const entries = await api.getJSON('entries')
+
     const [nbRows, setNbRows] = React.useState(5);
 
     return (
@@ -77,7 +92,7 @@ function Entries() {
                 <DataGridPro autoHeight
                              columns={columns}
                              rows={rows}
-                             initialState={{ pinnedColumns: { left: ['entryName'], right: ['toPar'] } }}
+                             initialState={{pinnedColumns: {left: ['entryName'], right: ['toPar']}}}
                 />
             </div>
         </div>

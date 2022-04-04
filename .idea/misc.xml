@@ -5,4 +5,30 @@
       <map />
     </option>
   </component>
+  <component name="UnattendedHostPersistenceState">
+    <option name="openedFilesInfos">
+      <list>
+        <OpenedFileInfo>
+          <option name="caretOffset" value="630" />
+          <option name="fileUrl" value="file://$PROJECT_DIR$/cmd/masters-web/main.go" />
+        </OpenedFileInfo>
+        <OpenedFileInfo>
+          <option name="caretOffset" value="1592" />
+          <option name="fileUrl" value="file://$PROJECT_DIR$/internal/routes/routes.go" />
+        </OpenedFileInfo>
+        <OpenedFileInfo>
+          <option name="caretOffset" value="1553" />
+          <option name="fileUrl" value="file://$PROJECT_DIR$/src/lib/api.js" />
+        </OpenedFileInfo>
+        <OpenedFileInfo>
+          <option name="caretOffset" value="1482" />
+          <option name="fileUrl" value="file://$PROJECT_DIR$/src/routes/entries/Entries.tsx" />
+        </OpenedFileInfo>
+        <OpenedFileInfo>
+          <option name="caretOffset" value="0" />
+          <option name="fileUrl" value="file://$PROJECT_DIR$/package.json" />
+        </OpenedFileInfo>
+      </list>
+    </option>
+  </component>
 </project>
