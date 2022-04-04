@@ -7,6 +7,9 @@ import (
 	"github.com/nkralles/masters-web/internal/logger"
 	"net"
 	"net/http"
+	"path"
+	"regexp"
+	"strings"
 	"time"
 )
 
@@ -56,6 +59,9 @@ func LoggingHandler(next http.Handler) http.Handler {
 
 func NewRouter() http.Handler {
 	router := mux.NewRouter()
+	fileServer := http.FileServer(http.Dir("build"))
+	pagePathRe := regexp.MustCompile(`^/[a-zA-Z0-9/_-]+$\??.*`)
+
 	router.Use(corsMiddleware)
 
 	api := router.PathPrefix("/api").Subrouter()
@@ -68,6 +74,21 @@ func NewRouter() http.Handler {
 
 	api.HandleFunc("/holes", GetHoles).Methods(http.MethodGet)
 	api.HandleFunc("/holes/{hole}", GetHole).Methods(http.MethodGet)
+
+	router.NotFoundHandler = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		if strings.HasPrefix(r.URL.Path, "/api/") {
+			http.Error(w, "Not Found", http.StatusNotFound)
+			return
+		}
+		h := r.Header.Get("Accept")
+		if strings.Contains(h, "text/html") || strings.Contains(h, "text/*") || strings.Contains(h, "*/*") {
+			if r.URL.Path == "/" || pagePathRe.MatchString(r.URL.Path) {
+				http.ServeFile(w, r, path.Join("build", "index.html"))
+				return
+			}
+		}
+		fileServer.ServeHTTP(w, r)
+	})
 
 	return router
 }
