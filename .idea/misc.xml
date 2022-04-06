@@ -9,44 +9,36 @@
     <option name="openedFilesInfos">
       <list>
         <OpenedFileInfo>
-          <option name="caretOffset" value="1553" />
-          <option name="fileUrl" value="file://$PROJECT_DIR$/src/lib/api.js" />
+          <option name="caretOffset" value="438" />
+          <option name="fileUrl" value="file://$PROJECT_DIR$/Dockerfile" />
         </OpenedFileInfo>
         <OpenedFileInfo>
-          <option name="caretOffset" value="2294" />
-          <option name="fileUrl" value="file://$PROJECT_DIR$/package.json" />
+          <option name="caretOffset" value="60" />
+          <option name="fileUrl" value="file://$PROJECT_DIR$/postgres/build.sh" />
         </OpenedFileInfo>
         <OpenedFileInfo>
-          <option name="caretOffset" value="7850" />
-          <option name="fileUrl" value="file://$PROJECT_DIR$/config/webpack.config.js" />
+          <option name="caretOffset" value="61" />
+          <option name="fileUrl" value="file://$PROJECT_DIR$/build-image.sh" />
         </OpenedFileInfo>
         <OpenedFileInfo>
-          <option name="caretOffset" value="2438" />
-          <option name="fileUrl" value="file://$PROJECT_DIR$/internal/routes/routes.go" />
+          <option name="caretOffset" value="250" />
+          <option name="fileUrl" value="file://$PROJECT_DIR$/postgres/run.sh" />
         </OpenedFileInfo>
         <OpenedFileInfo>
-          <option name="caretOffset" value="0" />
-          <option name="fileUrl" value="file://$PROJECT_DIR$/build/asset-manifest.json" />
+          <option name="caretOffset" value="2798" />
+          <option name="fileUrl" value="file://$PROJECT_DIR$/postgres/initdb/00001_init_db.sql" />
         </OpenedFileInfo>
         <OpenedFileInfo>
-          <option name="caretOffset" value="278" />
-          <option name="fileUrl" value="file://$PROJECT_DIR$/public/manifest.json" />
-        </OpenedFileInfo>
-        <OpenedFileInfo>
-          <option name="caretOffset" value="0" />
-          <option name="fileUrl" value="file://$PROJECT_DIR$/public/index.html" />
-        </OpenedFileInfo>
-        <OpenedFileInfo>
-          <option name="caretOffset" value="0" />
-          <option name="fileUrl" value="file://$PROJECT_DIR$/src/index.tsx" />
-        </OpenedFileInfo>
-        <OpenedFileInfo>
-          <option name="caretOffset" value="2432" />
-          <option name="fileUrl" value="file://$PROJECT_DIR$/package-lock.json" />
-        </OpenedFileInfo>
-        <OpenedFileInfo>
-          <option name="caretOffset" value="0" />
+          <option name="caretOffset" value="376" />
           <option name="fileUrl" value="file://$PROJECT_DIR$/postgres/Dockerfile" />
+        </OpenedFileInfo>
+        <OpenedFileInfo>
+          <option name="caretOffset" value="133" />
+          <option name="fileUrl" value="file://$PROJECT_DIR$/src/App.tsx" />
+        </OpenedFileInfo>
+        <OpenedFileInfo>
+          <option name="caretOffset" value="1325" />
+          <option name="fileUrl" value="file://$PROJECT_DIR$/src/routes/landing/Landing.tsx" />
         </OpenedFileInfo>
       </list>
     </option>

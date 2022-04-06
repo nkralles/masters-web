@@ -78,7 +78,7 @@ create table masters_score_holes
 );
 create index on masters_score_holes (player_id);
 create index on masters_score_holes (player_id, round);
-SELECT create_hypertable('masters_score_holes', 'ts', chunk_time_interval = > INTERVAL '5 minutes');
+SELECT create_hypertable('masters_score_holes', 'ts', chunk_time_interval => INTERVAL '5 minutes');
 
 create table masters_scores
 (
@@ -90,4 +90,5 @@ create table masters_scores
 
 create index on masters_scores (player_id);
 create index on masters_scores (player_id, round);
-SELECT create_hypertable('masters_scores', 'ts', chunk_time_interval = > INTERVAL '5 minutes');
+SELECT create_hypertable('masters_scores', 'ts', chunk_time_interval => INTERVAL '5 minutes');
+

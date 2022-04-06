@@ -6,6 +6,7 @@ type Golfer struct {
 	FirstName   string `json:"first_name,omitempty"`
 	LastName    string `json:"last_name,omitempty"`
 	CountryCode string `json:"cc,omitempty"`
+	Score       int    `json:"toPar"`
 }
 
 func (g *Golfer) Top12() bool {

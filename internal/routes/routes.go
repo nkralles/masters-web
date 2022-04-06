@@ -68,6 +68,8 @@ func NewRouter() http.Handler {
 	api.StrictSlash(true)
 
 	api.HandleFunc("/entries", GetEntries).Methods(http.MethodGet)
+	api.HandleFunc("/entries.csv", GetEntriesCSV).Methods(http.MethodGet)
+	api.HandleFunc("/entries.html", GetEntriesHtml).Methods(http.MethodGet)
 
 	api.HandleFunc("/golfers", GetGolfers).Methods(http.MethodGet)
 	api.HandleFunc("/golfers/{player_id}", GetGolfer).Methods(http.MethodGet)

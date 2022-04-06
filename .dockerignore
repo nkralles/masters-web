@@ -1,0 +1,7 @@
+node_modules/
+dist/
+.env.sh
+.gitignore
+.git/
+*.tar
+*.tar.gz

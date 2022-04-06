@@ -66,6 +66,7 @@ func main() {
 			if err != nil {
 				logger.Internal.Fatal(err)
 			}
+			r1 = r1 - 72
 		}
 		err = driver.AddScore(context.Background(), golfer, 1, r1)
 		if err != nil {
@@ -78,6 +79,7 @@ func main() {
 			if err != nil {
 				logger.Internal.Fatal(err)
 			}
+			r2 = r2 - 72
 		}
 		err = driver.AddScore(context.Background(), golfer, 2, r2)
 		if err != nil {
@@ -90,6 +92,7 @@ func main() {
 			if err != nil {
 				logger.Internal.Fatal(err)
 			}
+			r3 = r3 - 72
 		}
 		err = driver.AddScore(context.Background(), golfer, 3, r3)
 		if err != nil {
@@ -102,6 +105,7 @@ func main() {
 			if err != nil {
 				logger.Internal.Fatal(err)
 			}
+			r4 = r4 - 72
 		}
 		err = driver.AddScore(context.Background(), golfer, 4, r4)
 		if err != nil {

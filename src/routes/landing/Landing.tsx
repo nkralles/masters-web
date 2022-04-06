@@ -1,10 +1,12 @@
-import {Button, Grid, ThemeProvider} from "@mui/material";
+import {Button, Grid, LinearProgress, LinearProgressProps, ThemeProvider} from "@mui/material";
 import cheese from "../../cheese.png";
 import SportsGolfIcon from "@mui/icons-material/SportsGolf";
 import GolfCourseIcon from '@mui/icons-material/GolfCourse';
 import React from "react";
 import {createTheme} from "@mui/material/styles";
-import {Link, Outlet} from 'react-router-dom';
+import {Link} from 'react-router-dom';
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
 
 
 const theme = createTheme({
@@ -33,7 +35,19 @@ declare module '@mui/material/Button' {
         golden: true;
     }
 }
+
 function Landing() {
+    const [progress, setProgress] = React.useState(10);
+    React.useEffect(() => {
+        const timer = setInterval(() => {
+            setProgress((prevProgress) => (prevProgress >= 100 ? 10 : prevProgress + 10));
+        }, 800);
+        return () => {
+            clearInterval(timer);
+        };
+    }, []);
+
+
     return (
         <ThemeProvider theme={theme}>
             <Grid className="masters" container justifyContent="center" alignItems="center">
@@ -42,27 +56,46 @@ function Landing() {
                         <img src={cheese} className="App-logo" alt="logo"/>
                     </Grid>
                 </Grid>
-                <Grid container justifyContent="center" spacing={2} mt={-20}>
-                    <Grid item  >
+                {/*Placeholder till i etl data*/}
+                {process.env.NODE_ENV !== "production" ? <Grid container justifyContent="center" spacing={2} mt={-20}>
+                    {/*<Grid item>*/}
+                    {/*    <Button variant="contained" size="large" color="golden">*/}
+                    {/*        <Link to="/" style={{textDecoration: 'none'}}>*/}
+                    {/*            <GolfCourseIcon/>*/}
+                    {/*            Leaderboard*/}
+                    {/*        </Link>*/}
+                    {/*    </Button>*/}
+                    {/*</Grid>*/}
+                    <Grid item>
                         <Button variant="contained" size="large" color="golden">
-                            <Link to="/" style={{ textDecoration: 'none' }}>
-                                <GolfCourseIcon/>
-                                Leaderboard
-                            </Link>
-                        </Button>
-                    </Grid>
-                    <Grid item >
-                        <Button variant="contained" size="large" color="golden">
-                            <Link to="/entries" style={{ textDecoration: 'none' }}>
+                            <Link to="/entries" style={{textDecoration: 'none'}}>
                                 <SportsGolfIcon/>
                                 Entries
                             </Link>
                         </Button>
                     </Grid>
-                </Grid>
+                </Grid> :
+                    <Box sx={{ width: '50%' }}>
+                        <LinearProgressWithLabel value={progress} />
+                    </Box>
+                }
             </Grid>
         </ThemeProvider>
     );
 }
 
 export default Landing;
+
+
+function LinearProgressWithLabel(props: LinearProgressProps & { value: number }) {
+    return (
+        <Box sx={{ display: 'flex', alignItems: 'center' }}>
+            <Box sx={{ width: '100%', mr: 1 }}>
+                <LinearProgress variant="determinate" {...props} />
+            </Box>
+            <Box sx={{ minWidth: 50 }}>
+                <Typography variant="body2" color="text.secondary">COMING SOON...</Typography>
+            </Box>
+        </Box>
+    );
+}
