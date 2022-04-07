@@ -2,6 +2,8 @@ package persistence
 
 import (
 	"context"
+	"github.com/ua-parser/uap-go/uaparser"
+	"time"
 )
 
 var defaultDriver MastersStorage = nil
@@ -23,6 +25,8 @@ type MastersStorage interface {
 
 	AddScore(ctx context.Context, golfer *Golfer, round, score int) error
 	GetScores(ctx context.Context) ([]Score, error)
+
+	HttpTelemetry(ctx context.Context, t Telemetry)
 }
 
 func DefaultDriver() MastersStorage {
@@ -31,4 +35,14 @@ func DefaultDriver() MastersStorage {
 
 func SetDefaultDriver(driver MastersStorage) {
 	defaultDriver = driver
+}
+
+type Telemetry struct {
+	IP           string
+	HttpMethod   string
+	UrlPath      string
+	HttpCode     int
+	HttpWritten  int64
+	HttpDuration time.Duration
+	Ua           *uaparser.Client
 }

@@ -51,7 +51,8 @@ function Landing() {
 
     return (
         <ThemeProvider theme={theme}>
-            <GithubCorner href="https://github.com/nkralles/masters-web" size={100}  octoColor='#ffdf00' bannerColor='#446f42'/>
+            <GithubCorner href="https://github.com/nkralles/masters-web" size={100} octoColor='#ffdf00'
+                          bannerColor='#446f42'/>
             <Grid className="masters" container justifyContent="center" alignItems="center">
                 <Grid container justifyContent="center" spacing={2}>
                     <Grid item>
@@ -59,7 +60,7 @@ function Landing() {
                     </Grid>
                 </Grid>
                 {/*Placeholder till i etl data*/}
-                {process.env.NODE_ENV !== "production" ? <Grid container justifyContent="center" spacing={2} mt={-20}>
+                <Grid container justifyContent="center" spacing={2} mt={-20}>
                     <Grid item>
                         <Button variant="contained" size="large" color="golden">
                             <Link to="/leaderboard" style={{textDecoration: 'none'}}>
@@ -76,11 +77,7 @@ function Landing() {
                             </Link>
                         </Button>
                     </Grid>
-                </Grid> :
-                    <Box sx={{ width: '50%' }}>
-                        <LinearProgressWithLabel value={progress} />
-                    </Box>
-                }
+                </Grid>
             </Grid>
         </ThemeProvider>
     );
@@ -91,11 +88,11 @@ export default Landing;
 
 function LinearProgressWithLabel(props: LinearProgressProps & { value: number }) {
     return (
-        <Box sx={{ display: 'flex', alignItems: 'center' }}>
-            <Box sx={{ width: '100%', mr: 1 }}>
+        <Box sx={{display: 'flex', alignItems: 'center'}}>
+            <Box sx={{width: '100%', mr: 1}}>
                 <LinearProgress variant="determinate" {...props} />
             </Box>
-            <Box sx={{ minWidth: 50 }}>
+            <Box sx={{minWidth: 50}}>
                 <Typography variant="body2" color="text.secondary">COMING SOON...</Typography>
             </Box>
         </Box>

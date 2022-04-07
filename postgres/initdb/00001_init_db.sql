@@ -92,3 +92,30 @@ create index on masters_scores (player_id);
 create index on masters_scores (player_id, round);
 SELECT create_hypertable('masters_scores', 'ts', chunk_time_interval => INTERVAL '5 minutes');
 
+
+create table rest_telemetry
+(
+    ip                 text,
+    http_method        citext,
+    url_path           citext,
+    ts                 timestamptz default timezone('utc', now()),
+    http_code          int,
+    http_written       int,
+    http_duration      double precision,
+    http_duration_text text,
+    user_agent_family  citext,
+    user_agent_major   citext,
+    user_agent_minor   citext,
+    user_agent_patch   citext,
+    os_family          citext,
+    os_major           citext,
+    os_minor           citext,
+    os_patch           citext,
+    os_patch_minor     citext,
+    device_family      citext,
+    device_brand       citext,
+    device_model       citext
+);
+
+select create_hypertable('rest_telemetry', 'ts', chunk_time_interval => INTERVAL '30 minutes');
+

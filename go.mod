@@ -16,6 +16,7 @@ require (
 	github.com/jackc/pgtype v1.10.0 // indirect
 	github.com/jackc/pgx/v4 v4.15.0 // indirect
 	github.com/jackc/puddle v1.2.1 // indirect
+	github.com/ua-parser/uap-go v0.0.0-20211112212520-00c877edfe0f // indirect
 	gitlab.cloud.n-ask.com/n-ask/env v0.0.2 // indirect
 	gitlab.cloud.n-ask.com/n-ask/fancylog v1.1.0 // indirect
 	go.uber.org/zap v1.19.1 // indirect
@@ -27,4 +28,5 @@ require (
 	google.golang.org/genproto v0.0.0-20211208223120-3a66f561d7aa // indirect
 	google.golang.org/grpc v1.42.0 // indirect
 	google.golang.org/protobuf v1.27.1 // indirect
+	gopkg.in/yaml.v2 v2.2.8 // indirect
 )

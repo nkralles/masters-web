@@ -63,8 +63,23 @@ func (d *Driver) GetGolferById(ctx context.Context, id int) (*persistence.Golfer
 	return golfer, nil
 }
 
+var golferMap = map[string]string{
+	"Jose Maria Olazabal": "Jose M Olazabal",
+	"J. J. Spaun":         "J.J. Spaun",
+	"Si Woo Kim":          "SiWoo Kim",
+	"James Piot":          "James Piot(Am)",
+	"Laird Shepherd":      "Laird Shepherd(Am)",
+	"Keita Nakajima":      "Keita Nakajima(Am)",
+	"Matthew Fitzpatrick": "Matt Fitzpatrick",
+}
+
 func (d *Driver) GetGolferByFullName(ctx context.Context, name string) (*persistence.Golfer, error) {
 	golfer := new(persistence.Golfer)
+
+	if v, ok := golferMap[name]; ok {
+		name = v
+	}
+
 	err := d.pool.QueryRow(ctx, `select player_id, rank, first_name, last_name, cc from golfers where (first_name || ' ' || last_name)::citext = $1`,
 		name).Scan(&golfer.PlayerId, &golfer.Rank, &golfer.FirstName, &golfer.LastName, &golfer.CountryCode)
 	if err != nil {

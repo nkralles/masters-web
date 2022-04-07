@@ -34,7 +34,7 @@ from (
          select name,
                 winning_score,
                 coalesce(jsonb_agg(golfer), jsonb_build_array()) as golfers,
-                sum(par) filter ( where rid <= 5 )               as total
+                coalesce(sum(par) filter ( where rid <= 5 ),0)               as total
          from (
                   select t1.name,
                          t1.winning_score,

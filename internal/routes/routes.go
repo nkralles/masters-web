@@ -5,6 +5,8 @@ import (
 	"github.com/felixge/httpsnoop"
 	"github.com/gorilla/mux"
 	"github.com/nkralles/masters-web/internal/logger"
+	"github.com/nkralles/masters-web/internal/persistence"
+	"github.com/ua-parser/uap-go/uaparser"
 	"net"
 	"net/http"
 	"path"
@@ -40,19 +42,20 @@ func ListenAndServe(ctx context.Context, addr string) error {
 func LoggingHandler(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		m := httpsnoop.CaptureMetrics(next, w, r)
-		go func(r *http.Request) {
-			ip, _, err := net.SplitHostPort(r.RemoteAddr)
-			if err != nil {
-				logger.REST.Warnf("uperip: %q is not IP:Port", r.RemoteAddr)
-				return
-			}
-			userIP := net.ParseIP(ip)
-			if userIP == nil {
-				logger.REST.Warnf("uperip: %q is not IP:Port", r.RemoteAddr)
-				return
-			}
-		}(r)
-		logger.REST.Infof("%s %s %s %s %d %d %s", r.RemoteAddr, r.Method, r.URL.Path, r.Proto, m.Code, m.Written, m.Duration.String())
+		var ip = r.Header.Get("X-Forwarded-For")
+		ua := r.UserAgent()
+		parser := uaparser.NewFromSaved()
+		client := parser.Parse(ua)
+		logger.REST.Infof("%s %s %s %s %d %d %s", ip, r.Method, r.URL.Path, r.Proto, m.Code, m.Written, m.Duration.String())
+		persistence.DefaultDriver().HttpTelemetry(context.Background(), persistence.Telemetry{
+			IP:           ip,
+			HttpMethod:   r.Method,
+			UrlPath:      r.URL.Path,
+			HttpCode:     m.Code,
+			HttpWritten:  m.Written,
+			HttpDuration: m.Duration,
+			Ua:           client,
+		})
 	})
 }
 
