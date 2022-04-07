@@ -11,13 +11,14 @@ import IconButton from '@mui/material/IconButton';
 import HtmlIcon from '@mui/icons-material/Html';
 import SvgIcon from '@mui/material/SvgIcon';
 import {ReactComponent as CsvIcon} from './csv.svg';
+import {FlagMap} from "../../lib/flags";
 
 
 const renderPlayerGrid = function (v: GridRenderCellParams) {
     const style = {
         textAlign: 'center' as 'center'
     }
-    const flag: string = flagMap[v.value.cc] !== undefined ? flagMap[v.value.cc] + " " : "";
+    const flag: string = FlagMap[v.value.cc] !== undefined ? FlagMap[v.value.cc] + " " : "";
     return (
         <div style={style}>
             <b>{flag}{v.value.first_name} {v.value.last_name}</b>
@@ -25,43 +26,6 @@ const renderPlayerGrid = function (v: GridRenderCellParams) {
             <span>{v.value.toPar}</span>
         </div>
     )
-}
-
-const flagMap: { [key: string]: string } = {
-    "ARG": "🇦🇷",
-    "AUS": "🇦🇺",
-    "AUT": "🇦🇹",
-    "BEL": "🇧🇪",
-    "CAN": "🇨🇦",
-    "CHI": "🇨🇱",
-    "CHN": "🇨🇳",
-    "COL": "🇨🇴",
-    "DEN": "🇩🇰",
-    "ENG": "🇬🇧",
-    "ESP": "🇪🇸",
-    "FRA": "🇫🇷",
-    "GER": "🇩🇪",
-    "IND": "🇮🇳",
-    "IRL": "🇮🇪",
-    "ITA": "🇮🇹",
-    "JPN": "🇯🇵",
-    "KOR": "🇰🇷",
-    "MEX": "🇲🇽",
-    "NIR": "🏴󠁧󠁢󠁮󠁩󠁲󠁿",
-    "NOR": "🇳🇴",
-    "NZL": "🇳🇿",
-    "POL": "🇵🇱",
-    "POR": "🇵🇹",
-    "RSA": "🇿🇦",
-    "SCO": "🏴󠁧󠁢󠁳󠁣󠁴󠁿",
-    "SVK": "🇸🇰",
-    "SWE": "🇸🇪",
-    "THA": "🇹🇭",
-    "TPE": "🇹🇼",
-    "USA": "🇺🇸",
-    "VEN": "🇻🇪",
-    "WAL": "🏴󠁧󠁢󠁷󠁬󠁳󠁿",
-    "ZIM": "🇿🇼"
 }
 
 const columns: GridColDef[] = [
@@ -188,9 +152,9 @@ function Entries() {
     };
 
     return (
-        <div>
+        <div style={{backgroundColor: '#dfdfdb' }}>
             <Nav/>
-            <div style={{ display: 'flex', height: '90vh' }}>
+            <div style={{ display: 'flex', height: '90vh'}}>
                 <div style={{ flexGrow: 1 }}>
                     <DataGridPro
                         components={{Toolbar: QuickSearchToolbar}}

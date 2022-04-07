@@ -6,7 +6,6 @@ import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
-import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
 import {ReactComponent as MastersLogo} from '../masters-golf-tournament-logo.svg';
@@ -15,7 +14,7 @@ import './Nav.css'
 import {Link} from 'react-router-dom';
 
 
-const pages = ['Entries'];
+const pages = ['entries', 'leaderboard'];
 
 const Nav = () => {
     const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
@@ -28,9 +27,7 @@ const Nav = () => {
     };
 
     return (
-        <div style={{ width: '100%' }}>
-            <AppBar position="sticky" className="nav">
-                <Container maxWidth="100%" className="nav">
+            <AppBar position="sticky" className="nav" style={{backgroundColor:'#76c474'}}>
                     <Toolbar disableGutters>
                         <Typography
                             variant="h6"
@@ -106,9 +103,7 @@ const Nav = () => {
                             ))}
                         </Box>
                     </Toolbar>
-                </Container>
             </AppBar>
-        </div>
 
     );
 };

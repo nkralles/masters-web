@@ -22,6 +22,7 @@ type MastersStorage interface {
 	GetEntries(ctx context.Context) (*[]Entry, error)
 
 	AddScore(ctx context.Context, golfer *Golfer, round, score int) error
+	GetScores(ctx context.Context) ([]Score, error)
 }
 
 func DefaultDriver() MastersStorage {

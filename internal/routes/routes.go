@@ -51,7 +51,6 @@ func LoggingHandler(next http.Handler) http.Handler {
 				logger.REST.Warnf("uperip: %q is not IP:Port", r.RemoteAddr)
 				return
 			}
-			logger.REST.Debug(userIP.String())
 		}(r)
 		logger.REST.Infof("%s %s %s %s %d %d %s", r.RemoteAddr, r.Method, r.URL.Path, r.Proto, m.Code, m.Written, m.Duration.String())
 	})
@@ -76,6 +75,8 @@ func NewRouter() http.Handler {
 
 	api.HandleFunc("/holes", GetHoles).Methods(http.MethodGet)
 	api.HandleFunc("/holes/{hole}", GetHole).Methods(http.MethodGet)
+
+	api.HandleFunc("/scores", GetScores).Methods(http.MethodGet)
 
 	router.NotFoundHandler = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		if strings.HasPrefix(r.URL.Path, "/api/") {

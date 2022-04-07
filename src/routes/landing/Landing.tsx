@@ -58,14 +58,14 @@ function Landing() {
                 </Grid>
                 {/*Placeholder till i etl data*/}
                 {process.env.NODE_ENV !== "production" ? <Grid container justifyContent="center" spacing={2} mt={-20}>
-                    {/*<Grid item>*/}
-                    {/*    <Button variant="contained" size="large" color="golden">*/}
-                    {/*        <Link to="/" style={{textDecoration: 'none'}}>*/}
-                    {/*            <GolfCourseIcon/>*/}
-                    {/*            Leaderboard*/}
-                    {/*        </Link>*/}
-                    {/*    </Button>*/}
-                    {/*</Grid>*/}
+                    <Grid item>
+                        <Button variant="contained" size="large" color="golden">
+                            <Link to="/leaderboard" style={{textDecoration: 'none'}}>
+                                <GolfCourseIcon/>
+                                Leaderboard
+                            </Link>
+                        </Button>
+                    </Grid>
                     <Grid item>
                         <Button variant="contained" size="large" color="golden">
                             <Link to="/entries" style={{textDecoration: 'none'}}>

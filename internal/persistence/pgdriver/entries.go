@@ -56,9 +56,9 @@ from (
                            left outer join (
                       select player_id, case when sum(ms1.score) > 1000 then 1000 else sum(ms1.score) end as par
                       from (
-                               select player_id, score, round, max(ts)
+                               select distinct on (player_id, round) player_id, score, round
                                from masters_scores
-                               group by player_id, score, round
+                               order by player_id, round, ts desc
                            ) ms1
                       group by player_id
                   ) t2 on t2.player_id = t1.player_id
