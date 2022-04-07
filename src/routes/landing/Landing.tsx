@@ -7,6 +7,7 @@ import {createTheme} from "@mui/material/styles";
 import {Link} from 'react-router-dom';
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
+import GithubCorner from 'react-github-corner';
 
 
 const theme = createTheme({
@@ -50,6 +51,7 @@ function Landing() {
 
     return (
         <ThemeProvider theme={theme}>
+            <GithubCorner href="https://github.com/nkralles/masters-web" size={100}  octoColor='#ffdf00' bannerColor='#446f42'/>
             <Grid className="masters" container justifyContent="center" alignItems="center">
                 <Grid container justifyContent="center" spacing={2}>
                     <Grid item>
