@@ -23,7 +23,7 @@ from (
                 last_name,
                 cc,
                 jsonb_agg(jsonb_build_object('round', round, 'toPar', score, 'lastupdated', ts)) as rounds,
-                case when sum(score) > 1000 then 1000 else sum(score) end                        as total,
+                case when sum(score) filter ( where round = 2 ) > 1000 then 1000 else sum(score) filter ( where round = 2 ) end                        as total,
                 max(ts)                                                                          as last_updated
          from (
                   select distinct on (player_id, round) player_id, score, round, ts

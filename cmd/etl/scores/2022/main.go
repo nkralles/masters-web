@@ -65,28 +65,28 @@ func main() {
 
 			for _, player := range data.Data.Player {
 				go func(player playerScore) {
-					if player.Round1.RoundStatus != nil && *player.Round1.RoundStatus == "Playing" && player.Topar != nil {
-						logger.Internal.Debugf("%s %s r1 %s", player.FirstName, player.LastName, *player.Topar)
-						golfer, err := driver.GetGolferByFullName(context.Background(), fmt.Sprintf("%s %s", player.FirstName, player.LastName))
-						if err != nil {
-							logger.Internal.Errorf("failed to find %s %s\n", player.FirstName, player.LastName)
-							return
-						}
-						par, err := parsePar(*player.Topar)
-						if err == nil {
-							err = driver.AddScore(context.Background(), golfer, 1, par)
-							if err != nil {
-								logger.Internal.Error(err)
-								return
-							}
-						} else {
-							if !errors.Is(err, ErrNotValidScore) {
-								logger.Internal.Errorf("unexpected score... %s", *player.Topar)
-								return
-							}
-						}
-					}
-					if player.Round2.RoundStatus != nil && *player.Round2.RoundStatus == "Playing" && player.Topar != nil {
+					//if player.Round1.RoundStatus != nil && player.Topar != nil {
+					//	logger.Internal.Debugf("%s %s r1 %s", player.FirstName, player.LastName, *player.Topar)
+					//	golfer, err := driver.GetGolferByFullName(context.Background(), fmt.Sprintf("%s %s", player.FirstName, player.LastName))
+					//	if err != nil {
+					//		logger.Internal.Errorf("failed to find %s %s\n", player.FirstName, player.LastName)
+					//		return
+					//	}
+					//	par, err := parsePar(*player.Topar)
+					//	if err == nil {
+					//		err = driver.AddScore(context.Background(), golfer, 1, par)
+					//		if err != nil {
+					//			logger.Internal.Error(err)
+					//			return
+					//		}
+					//	} else {
+					//		if !errors.Is(err, ErrNotValidScore) {
+					//			logger.Internal.Errorf("unexpected score... %s", *player.Topar)
+					//			return
+					//		}
+					//	}
+					//}
+					if player.Round2.RoundStatus != nil && player.Topar != nil {
 						logger.Internal.Debugf("%s %s r2 %s", player.FirstName, player.LastName, *player.Topar)
 						golfer, err := driver.GetGolferByFullName(context.Background(), fmt.Sprintf("%s %s", player.FirstName, player.LastName))
 						if err != nil {
@@ -180,6 +180,7 @@ type playerScore struct {
 	Round2       *Round  `json:"round2,omitempty"`
 	Round3       *Round  `json:"round3,omitempty"`
 	Round4       *Round  `json:"round4,omitempty"`
+	Active  bool `json:"active,omitempty"`
 }
 
 var ErrNotValidScore = fmt.Errorf("empty score not valid")
