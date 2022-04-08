@@ -16,24 +16,23 @@ func (d *Driver) GetScores(ctx context.Context) ([]persistence.Score, error) {
 
 	rows, err := d.pool.Query(ctx,
 		`select *, rank() over (order by total) as standing
-from (
-         select t1.player_id,
-                rank,
-                first_name,
-                last_name,
-                cc,
-                jsonb_agg(jsonb_build_object('round', round, 'toPar', score, 'lastupdated', ts)) as rounds,
-                case when sum(score) filter ( where round = 2 ) > 1000 then 1000 else sum(score) filter ( where round = 2 ) end                        as total,
-                max(ts)                                                                          as last_updated
-         from (
-                  select distinct on (player_id, round) player_id, score, round, ts
-                  from masters_scores
-                  order by player_id, round, ts desc
-              ) t1
-                  join golfers g on t1.player_id = g.player_id
-         group by t1.player_id, rank, first_name, last_name, cc
-         order by total
-     ) t2;`,
+from (select t1.player_id,
+             rank,
+             first_name,
+             last_name,
+             cc,
+             jsonb_agg(jsonb_build_object('round', round, 'toPar', t1.score, 'lastupdated', ts)) as rounds,
+             coalesce(total_score.score, 0)                                                      as total,
+             max(ts)                                                                             as last_updated
+      from (select distinct on (player_id, round) player_id, score, round, ts
+            from masters_scores
+            order by player_id, round, ts desc) t1
+               left outer join (select distinct on (player_id) player_id, score
+                                from masters_scores
+                                order by player_id, ts desc) total_score on total_score.player_id = t1.player_id
+               join golfers g on t1.player_id = g.player_id
+      group by t1.player_id, rank, first_name, last_name, cc, total_score.score
+      order by total) t2;`,
 	)
 	if err != nil {
 		return nil, err

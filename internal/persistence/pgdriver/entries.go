@@ -28,39 +28,32 @@ func (d *Driver) SetEntryWinningScore(ctx context.Context, name string, score in
 func (d *Driver) GetEntries(ctx context.Context) (*[]persistence.Entry, error) {
 	entries := make([]persistence.Entry, 0)
 	rows, err := d.pool.Query(ctx, `
-			
-select *, row_number() over (order by total)                    as rank
-from (
-         select name,
-                winning_score,
-                golfers,
-                (select sum(_s.s) from (select unnest(total) as s order by 1 limit 5) _s) as total
-         from (select name,
-                      winning_score,
-                      coalesce(jsonb_agg(golfer order by (golfer ->> 'rank')::int), jsonb_build_array()) as golfers,
-                      array_agg(coalesce(par, 0))                                                        as total
-               from (select t1.name,
-                            t1.winning_score,
-                            jsonb_build_object('playerId', t1.player_id, 'rank', rank, 'first_name', first_name,
-                                               'last_name',
-                                               last_name, 'cc', cc, 'toPar', coalesce(t2.par, 0)) as golfer,
-                            coalesce(t2.par, 0)                                                   as par
---                    row_number() over (partition by name order by par)                    as rid
-                     from (select name, winning_score, g.player_id, g.rank, g.first_name, g.last_name, g.cc
-                           from entries e
-                                    join user_golfer_entries uge on e.name = uge.entry_name
-                                    join golfers g on g.player_id = uge.golfer_id) t1
-                              left outer join (select player_id,
-                                                      case when sum(ms1.score) > 1000 then 1000 else sum(ms1.score) end as par
-                                               from (select distinct on (player_id, round) player_id, score, round
-                                                     from masters_scores
-						     where round = 2
-                                                     order by player_id, round, ts desc) ms1
-                                               group by player_id) t2 on t2.player_id = t1.player_id
-                     order by t1.name) t3
-               group by name, winning_score
-               order by total) t4
-     ) t5
+select *, row_number() over (order by total) as rank
+from (select name,
+             winning_score,
+             golfers,
+             (select sum(_s.s) from (select unnest(total) as s order by 1 limit 5) _s) as total
+      from (select name,
+                   winning_score,
+                   coalesce(jsonb_agg(golfer order by (golfer ->> 'rank')::int), jsonb_build_array()) as golfers,
+                   array_agg(coalesce(par, 0))                                                        as total
+            from (select t1.name,
+                         t1.winning_score,
+                         jsonb_build_object('playerId', t1.player_id, 'rank', rank, 'first_name', first_name,
+                                            'last_name',
+                                            last_name, 'cc', cc, 'toPar', coalesce(total_score.score, 0)) as golfer,
+                         coalesce(total_score.score, 0)                                                   as par
+                  from (select name, winning_score, g.player_id, g.rank, g.first_name, g.last_name, g.cc
+                        from entries e
+                                 join user_golfer_entries uge on e.name = uge.entry_name
+                                 join golfers g on g.player_id = uge.golfer_id) t1
+                           left outer join (select distinct on (player_id) player_id, score
+                                            from masters_scores
+                                            order by player_id, ts desc) as total_score
+                                           on total_score.player_id = t1.player_id
+                  order by t1.name) t3
+            group by name, winning_score
+            order by total) t4) t5;
 		`)
 	if err != nil {
 		return nil, err
