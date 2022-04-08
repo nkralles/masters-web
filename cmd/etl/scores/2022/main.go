@@ -64,7 +64,7 @@ func main() {
 			}
 
 			for _, player := range data.Data.Player {
-				if player.Active {
+				if player.Status != "W" {
 					go func(player playerScore) {
 						//if player.Round1.RoundStatus != nil && player.Topar != nil {
 						//	logger.Internal.Debugf("%s %s r1 %s", player.FirstName, player.LastName, *player.Topar)
@@ -183,6 +183,7 @@ type playerScore struct {
 	Round3       *Round  `json:"round3,omitempty"`
 	Round4       *Round  `json:"round4,omitempty"`
 	Active       bool    `json:"active,omitempty"`
+	Status       string  `json:"status"`
 }
 
 var ErrNotValidScore = fmt.Errorf("empty score not valid")
