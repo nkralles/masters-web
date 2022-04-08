@@ -64,7 +64,7 @@ func main() {
 			}
 
 			for _, player := range data.Data.Player {
-				if player.Active{
+				//if player.Active{
 				go func(player playerScore) {
 					//if player.Round1.RoundStatus != nil && player.Topar != nil {
 					//	logger.Internal.Debugf("%s %s r1 %s", player.FirstName, player.LastName, *player.Topar)
@@ -152,7 +152,7 @@ func main() {
 					}
 				}(player)
 			}
-			}
+			//}
 		}
 
 		time.Sleep(2 * time.Minute)
@@ -182,7 +182,7 @@ type playerScore struct {
 	Round2       *Round  `json:"round2,omitempty"`
 	Round3       *Round  `json:"round3,omitempty"`
 	Round4       *Round  `json:"round4,omitempty"`
-	Active  bool `json:"active,omitempty"`
+	Active       bool    `json:"active,omitempty"`
 }
 
 var ErrNotValidScore = fmt.Errorf("empty score not valid")
