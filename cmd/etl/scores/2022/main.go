@@ -64,6 +64,7 @@ func main() {
 			}
 
 			for _, player := range data.Data.Player {
+				if player.Active{
 				go func(player playerScore) {
 					//if player.Round1.RoundStatus != nil && player.Topar != nil {
 					//	logger.Internal.Debugf("%s %s r1 %s", player.FirstName, player.LastName, *player.Topar)
@@ -150,6 +151,7 @@ func main() {
 						}
 					}
 				}(player)
+			}
 			}
 		}
 
