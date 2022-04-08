@@ -64,95 +64,95 @@ func main() {
 			}
 
 			for _, player := range data.Data.Player {
-				//if player.Active{
-				go func(player playerScore) {
-					//if player.Round1.RoundStatus != nil && player.Topar != nil {
-					//	logger.Internal.Debugf("%s %s r1 %s", player.FirstName, player.LastName, *player.Topar)
-					//	golfer, err := driver.GetGolferByFullName(context.Background(), fmt.Sprintf("%s %s", player.FirstName, player.LastName))
-					//	if err != nil {
-					//		logger.Internal.Errorf("failed to find %s %s\n", player.FirstName, player.LastName)
-					//		return
-					//	}
-					//	par, err := parsePar(*player.Topar)
-					//	if err == nil {
-					//		err = driver.AddScore(context.Background(), golfer, 1, par)
-					//		if err != nil {
-					//			logger.Internal.Error(err)
-					//			return
-					//		}
-					//	} else {
-					//		if !errors.Is(err, ErrNotValidScore) {
-					//			logger.Internal.Errorf("unexpected score... %s", *player.Topar)
-					//			return
-					//		}
-					//	}
-					//}
-					if player.Round2.RoundStatus != nil && player.Topar != nil {
-						logger.Internal.Debugf("%s %s r2 %s", player.FirstName, player.LastName, *player.Topar)
-						golfer, err := driver.GetGolferByFullName(context.Background(), fmt.Sprintf("%s %s", player.FirstName, player.LastName))
-						if err != nil {
-							logger.Internal.Errorf("failed to find %s %s\n", player.FirstName, player.LastName)
-							return
-						}
-						par, err := parsePar(*player.Topar)
-						if err == nil {
-							err = driver.AddScore(context.Background(), golfer, 2, par)
+				if player.Active {
+					go func(player playerScore) {
+						//if player.Round1.RoundStatus != nil && player.Topar != nil {
+						//	logger.Internal.Debugf("%s %s r1 %s", player.FirstName, player.LastName, *player.Topar)
+						//	golfer, err := driver.GetGolferByFullName(context.Background(), fmt.Sprintf("%s %s", player.FirstName, player.LastName))
+						//	if err != nil {
+						//		logger.Internal.Errorf("failed to find %s %s\n", player.FirstName, player.LastName)
+						//		return
+						//	}
+						//	par, err := parsePar(*player.Topar)
+						//	if err == nil {
+						//		err = driver.AddScore(context.Background(), golfer, 1, par)
+						//		if err != nil {
+						//			logger.Internal.Error(err)
+						//			return
+						//		}
+						//	} else {
+						//		if !errors.Is(err, ErrNotValidScore) {
+						//			logger.Internal.Errorf("unexpected score... %s", *player.Topar)
+						//			return
+						//		}
+						//	}
+						//}
+						if player.Round2.RoundStatus != nil && player.Topar != nil {
+							logger.Internal.Debugf("%s %s r2 %s", player.FirstName, player.LastName, *player.Topar)
+							golfer, err := driver.GetGolferByFullName(context.Background(), fmt.Sprintf("%s %s", player.FirstName, player.LastName))
 							if err != nil {
-								logger.Internal.Error(err)
+								logger.Internal.Errorf("failed to find %s %s\n", player.FirstName, player.LastName)
 								return
 							}
-						} else {
-							if !errors.Is(err, ErrNotValidScore) {
-								logger.Internal.Errorf("unexpected score... %s", *player.Topar)
-								return
+							par, err := parsePar(*player.Topar)
+							if err == nil {
+								err = driver.AddScore(context.Background(), golfer, 2, par)
+								if err != nil {
+									logger.Internal.Error(err)
+									return
+								}
+							} else {
+								if !errors.Is(err, ErrNotValidScore) {
+									logger.Internal.Errorf("unexpected score... %s", *player.Topar)
+									return
+								}
 							}
 						}
-					}
-					if player.Round3.RoundStatus != nil && *player.Round3.RoundStatus == "Playing" && player.Topar != nil {
-						logger.Internal.Debugf("%s %s r3 %s", player.FirstName, player.LastName, *player.Topar)
-						golfer, err := driver.GetGolferByFullName(context.Background(), fmt.Sprintf("%s %s", player.FirstName, player.LastName))
-						if err != nil {
-							logger.Internal.Errorf("failed to find %s %s\n", player.FirstName, player.LastName)
-							return
-						}
-						par, err := parsePar(*player.Topar)
-						if err == nil {
-							err = driver.AddScore(context.Background(), golfer, 3, par)
+						if player.Round3.RoundStatus != nil && *player.Round3.RoundStatus == "Playing" && player.Topar != nil {
+							logger.Internal.Debugf("%s %s r3 %s", player.FirstName, player.LastName, *player.Topar)
+							golfer, err := driver.GetGolferByFullName(context.Background(), fmt.Sprintf("%s %s", player.FirstName, player.LastName))
 							if err != nil {
-								logger.Internal.Error(err)
+								logger.Internal.Errorf("failed to find %s %s\n", player.FirstName, player.LastName)
 								return
 							}
-						} else {
-							if !errors.Is(err, ErrNotValidScore) {
-								logger.Internal.Errorf("unexpected score... %s", *player.Topar)
-								return
+							par, err := parsePar(*player.Topar)
+							if err == nil {
+								err = driver.AddScore(context.Background(), golfer, 3, par)
+								if err != nil {
+									logger.Internal.Error(err)
+									return
+								}
+							} else {
+								if !errors.Is(err, ErrNotValidScore) {
+									logger.Internal.Errorf("unexpected score... %s", *player.Topar)
+									return
+								}
 							}
 						}
-					}
-					if player.Round4.RoundStatus != nil && *player.Round4.RoundStatus == "Playing" && player.Topar != nil {
-						logger.Internal.Debugf("%s %s r4 %s", player.FirstName, player.LastName, *player.Topar)
-						golfer, err := driver.GetGolferByFullName(context.Background(), fmt.Sprintf("%s %s", player.FirstName, player.LastName))
-						if err != nil {
-							logger.Internal.Errorf("failed to find %s %s\n", player.FirstName, player.LastName)
-							return
-						}
-						par, err := parsePar(*player.Topar)
-						if err == nil {
-							err = driver.AddScore(context.Background(), golfer, 4, par)
+						if player.Round4.RoundStatus != nil && *player.Round4.RoundStatus == "Playing" && player.Topar != nil {
+							logger.Internal.Debugf("%s %s r4 %s", player.FirstName, player.LastName, *player.Topar)
+							golfer, err := driver.GetGolferByFullName(context.Background(), fmt.Sprintf("%s %s", player.FirstName, player.LastName))
 							if err != nil {
-								logger.Internal.Error(err)
+								logger.Internal.Errorf("failed to find %s %s\n", player.FirstName, player.LastName)
 								return
 							}
-						} else {
-							if !errors.Is(err, ErrNotValidScore) {
-								logger.Internal.Errorf("unexpected score... %s", *player.Topar)
-								return
+							par, err := parsePar(*player.Topar)
+							if err == nil {
+								err = driver.AddScore(context.Background(), golfer, 4, par)
+								if err != nil {
+									logger.Internal.Error(err)
+									return
+								}
+							} else {
+								if !errors.Is(err, ErrNotValidScore) {
+									logger.Internal.Errorf("unexpected score... %s", *player.Topar)
+									return
+								}
 							}
 						}
-					}
-				}(player)
+					}(player)
+				}
 			}
-			//}
 		}
 
 		time.Sleep(2 * time.Minute)
