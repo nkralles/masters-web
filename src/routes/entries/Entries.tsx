@@ -114,6 +114,21 @@ function Entries() {
     const [rows, setRows] = useState([]);
     const [filteredRows, setFilteredRows] = useState([]);
 
+    function funcNames(name: string) {
+        switch (name){
+            case "Chris O'Donnell":
+                return `🤡 ${name}`;
+            case "Zayden O'Donnell":
+                return `😎 ${name}`;
+            case 'Philip Glass':
+                return `🍺 ${name} 🍺`;
+            case 'Nick Kralles':
+                return `🤓 ${name}`;
+            default:
+                return name;
+        }
+    }
+
     useEffect(() => {
         ;(async () => {
             try {
@@ -128,7 +143,7 @@ function Entries() {
                     return {
                         rank: e.rank,
                         id: e.name,
-                        entryName: e.name,
+                        entryName: funcNames(e.name),
                         top12_1: e.golfers[0],
                         top12_2: e.golfers[1],
                         top12_3: e.golfers[2],
@@ -176,7 +191,7 @@ function Entries() {
                                 clearSearch: () => requestSearch(''),
                             },
                         }}
-                        getRowClassName={(params) => { console.log(params.row); return `row-rank--${params.row.rank} row-name--${params.row.entryName.replaceAll(' ','_')}`}}
+                        getRowClassName={(params) => { return `row-rank--${params.row.rank} ${params.row.total > 100 ? 'row-total--out' : ''}  row-name--${params.row.entryName.replaceAll(' ','_')}`}}
                         // initialState={{pinnedColumns: {left: ['entryName'], right: ['toPar']}}}
                     />
                 </div>

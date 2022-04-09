@@ -32,3 +32,11 @@
 .row-name--Nick_Guerere {
     background-color: #FF10F0 !important;
 }
+
+.row-total--out{
+    background-color: #FF7F7F;
+}
+
+.row-total--out:hover{
+    background-color: #FF7F7F !important;
+}
