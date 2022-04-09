@@ -1,0 +1,34 @@
+.row-rank--1{
+    background-color: gold;
+}
+.row-rank--1:hover{
+    background-color: gold !important;
+}
+
+.row-rank--2{
+    background-color: silver;
+}
+.row-rank--2:hover{
+    background-color: silver !important;
+}
+
+.row-rank--3{
+    background-color: #CD7F32;
+}
+.row-rank--3:hover{
+    background-color: #CD7F32 !important;
+}
+
+.row-rank--4{
+    background-color: #118C4F;
+}
+.row-rank--4:hover{
+    background-color: #118C4F !important;
+}
+
+.row-name--Nick_Guerere{
+    background-color: #FF10F0;
+}
+.row-name--Nick_Guerere {
+    background-color: #FF10F0 !important;
+}

@@ -1,4 +1,3 @@
-
 export const api = {
     get: (path, options) => request('GET', path, options),
     post: (path, options) => request('POST', path, options),
@@ -10,6 +9,8 @@ export const api = {
     deleteJSON: (path, options) => requestJSON('DELETE', path, options),
 }
 
+const proxyUrl = process.env.NODE_ENV !== 'production';
+
 async function request(method, path, options = {}) {
     const init = {
         method,
@@ -17,7 +18,7 @@ async function request(method, path, options = {}) {
         ...options,
     }
     try {
-        const response = await fetch('/api' + path, init)
+        const response = await fetch(proxyUrl ? 'https://masters.nkralles.dev/api' + path : '/api' + path, init)
         const data = response.status === 204 ? null : await response.text()
         return {
             status: response.status,
@@ -40,7 +41,7 @@ async function request(method, path, options = {}) {
 }
 
 async function requestJSON(method, path, options = {}) {
-    const { body, ...init } = options
+    const {body, ...init} = options
     if (body) {
         init.body = JSON.stringify(body)
     }

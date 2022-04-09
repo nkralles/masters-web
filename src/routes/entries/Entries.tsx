@@ -12,6 +12,7 @@ import HtmlIcon from '@mui/icons-material/Html';
 import SvgIcon from '@mui/material/SvgIcon';
 import {ReactComponent as CsvIcon} from './csv.svg';
 import {FlagMap} from "../../lib/flags";
+import './entries.css';
 
 
 const renderPlayerGrid = function (v: GridRenderCellParams) {
@@ -29,6 +30,11 @@ const renderPlayerGrid = function (v: GridRenderCellParams) {
 }
 
 const columns: GridColDef[] = [
+    {
+        field: 'rank',
+        headerName: 'Standing',
+        width: 80,
+    },
     {
         field: 'entryName',
         headerName: 'Entry Name',
@@ -117,8 +123,10 @@ function Entries() {
                     name: string;
                     winning_score: number;
                     total: number
+                    rank: number
                 }) => {
                     return {
+                        rank: e.rank,
                         id: e.name,
                         entryName: e.name,
                         top12_1: e.golfers[0],
@@ -168,6 +176,7 @@ function Entries() {
                                 clearSearch: () => requestSearch(''),
                             },
                         }}
+                        getRowClassName={(params) => { console.log(params.row); return `row-rank--${params.row.rank} row-name--${params.row.entryName.replaceAll(' ','_')}`}}
                         // initialState={{pinnedColumns: {left: ['entryName'], right: ['toPar']}}}
                     />
                 </div>
