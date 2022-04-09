@@ -9,6 +9,7 @@ import ClearIcon from '@mui/icons-material/Clear';
 import SearchIcon from '@mui/icons-material/Search';
 import IconButton from '@mui/material/IconButton';
 import HtmlIcon from '@mui/icons-material/Html';
+import RefreshIcon from '@mui/icons-material/Refresh';
 import SvgIcon from '@mui/material/SvgIcon';
 import {ReactComponent as CsvIcon} from './csv.svg';
 import {FlagMap} from "../../lib/flags";
@@ -132,8 +133,8 @@ function Entries() {
     useEffect(() => {
         ;(async () => {
             try {
-                const entries: any = await api.getJSON('/entries')
-                setRows(entries.data.map((e: {
+                const entries: any = await getScores();
+                setRows(entries.map((e: {
                     golfers: any;
                     name: string;
                     winning_score: number;
@@ -210,6 +211,15 @@ interface QuickSearchToolbarProps {
     value: string;
 }
 
+async function getScores(){
+    try {
+        const entries = await api.getJSON('/entries');
+        return await entries.data
+    } catch (e) {
+        console.error(e);
+    }
+}
+
 function QuickSearchToolbar(props: QuickSearchToolbarProps) {
     return (
         <Box
@@ -267,6 +277,14 @@ function QuickSearchToolbar(props: QuickSearchToolbarProps) {
                 onClick={() => window.open("/api/entries.csv", "_blank")}
             >
                 <SvgIcon component={CsvIcon} fontSize="large" inheritViewBox/>
+            </IconButton>
+            <IconButton
+                title="Open Raw HTML"
+                aria-label="HTML"
+                size="large"
+                onClick={() => {window.location.reload();}}
+            >
+                <RefreshIcon fontSize="large"/>
             </IconButton>
 
         </Box>
