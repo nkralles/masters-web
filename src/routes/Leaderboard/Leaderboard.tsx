@@ -53,11 +53,11 @@ function Leaderboard(props?: Props) {
                 >
                     <Grid item xl>
                         <List sx={{width: '100%', maxWidth: 360, bgcolor: '#DFDFD9FF'}}>
-                            <ListItem alignItems="center">
+                            <ListItem key='====' alignItems="center">
                                 <ListItemText
                                               primary={
                                                   <React.Fragment>
-                                                      <Typography variant="h4" gutterBottom component="div" textAlign={"center"}>
+                                                      <Typography variant="h4" gutterBottom textAlign={"center"}>
                                                          LEADERBOARD
                                                       </Typography>
                                                   </React.Fragment>
@@ -88,23 +88,17 @@ function Leaderboard(props?: Props) {
                                 </ListItemText>
                             </ListItem>
                             {scores.map((s: Score) => (
-                                <ListItem alignItems="flex-start"
+                                <ListItem key={s.playerId} alignItems="flex-start"
                                           secondaryAction={
                                               <Link fontSize={"x-large"} style={{textDecoration: 'none'}}>
-                                                  <span>{s.total}</span>
+                                                  <span>{s.total > 100 ? 'CUT' : s.total}</span>
                                               </Link>
                                           }
                                 >
                                     <ListItemAvatar>
-                                        <div style={{
-                                            display: 'flex',
-                                            alignItems: 'center',
-                                            flexWrap: 'wrap',
-                                        }}>
                                             <Link fontSize={"xx-large"} style={{textDecoration: 'none'}}>
                                                 <span>{FlagMap[s.countryCode] ? FlagMap[s.countryCode] : '🏴‍☠️'}</span>
                                             </Link>
-                                        </div>
                                     </ListItemAvatar>
                                     <ListItemText primary={`${s.standing} ${s.first_name} ${s.last_name}`}
                                                   secondary={
