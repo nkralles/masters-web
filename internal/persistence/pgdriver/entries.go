@@ -28,7 +28,7 @@ func (d *Driver) SetEntryWinningScore(ctx context.Context, name string, score in
 func (d *Driver) GetEntries(ctx context.Context) (*[]persistence.Entry, error) {
 	entries := make([]persistence.Entry, 0)
 	rows, err := d.pool.Query(ctx, `
-select *, row_number() over (order by total) as rank
+select *, rank() over (order by total) as rank
 from (select name,
              winning_score,
              golfers,

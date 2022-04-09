@@ -65,7 +65,6 @@ func NewRouter() http.Handler {
 	pagePathRe := regexp.MustCompile(`^/[a-zA-Z0-9/_-]+$\??.*`)
 
 	router.Use(corsMiddleware)
-
 	api := router.PathPrefix("/api").Subrouter()
 	api.StrictSlash(true)
 
